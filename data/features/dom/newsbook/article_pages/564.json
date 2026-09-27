@@ -1,0 +1,127 @@
+{
+    "num_links": 136,
+    "num_images": 40,
+    "num_scripts": 53,
+    "num_iframes": 1,
+    "num_buttons": 15,
+    "num_forms": 2,
+    "num_paragraphs": 28,
+    "num_headings": 19,
+    "text_length": 7785,
+    "word_count": 1186,
+    "dom_depth": 20,
+    "num_advertisement_iframes": 8,
+    "advertisement_iframes": [
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "top_push_alt"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "top_push"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "cat_top"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "cat_foot"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "cat_side1"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "allcats_side_btwn_1_2"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "cat_side2"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "cat_side3"
+            ],
+            "id": null,
+            "text": ""
+        }
+    ],
+    "num_non_ad_iframes": -7,
+    "has_aria_attributes": 1,
+    "num_aria_attributes": 49,
+    "aria_attribute_density": 0.049746192893401014,
+    "num_aria_label": 20,
+    "num_aria_labelledby": 4,
+    "num_aria_hidden": 15,
+    "num_aria_live": 1,
+    "num_broken_aria_labelledby_refs": 0,
+    "unlabelled_button_ratio": 0.0667,
+    "unlabelled_link_ratio": 0.1544,
+    "unlabelled_input_ratio": 0.5714,
+    "num_images_without_alt": 2,
+    "alt_text_coverage": 0.95,
+    "heading_level_skips": 1,
+    "empty_heading_count": 0,
+    "has_main_landmark": 1,
+    "has_nav_landmark": 1,
+    "semantic_element_ratio": 0.046700507614213196,
+    "average_paragraph_word_count": 23.892857142857142,
+    "id": "564",
+    "website": "newsbook",
+    "page_type": "article_pages"
+}

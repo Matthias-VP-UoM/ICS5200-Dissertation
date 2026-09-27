@@ -1,0 +1,105 @@
+{
+    "num_links": 131,
+    "num_images": 34,
+    "num_scripts": 48,
+    "num_iframes": 0,
+    "num_buttons": 15,
+    "num_forms": 2,
+    "num_paragraphs": 21,
+    "num_headings": 21,
+    "text_length": 6628,
+    "word_count": 1007,
+    "dom_depth": 16,
+    "num_advertisement_iframes": 6,
+    "advertisement_iframes": [
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "top_push_alt"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "top_push"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "cat_side1"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "allcats_side_btwn_1_2"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "cat_side2"
+            ],
+            "id": null,
+            "text": ""
+        },
+        {
+            "tag": "div",
+            "src": null,
+            "aria_label": null,
+            "class": [
+                "ad",
+                "cat_side3"
+            ],
+            "id": null,
+            "text": ""
+        }
+    ],
+    "num_non_ad_iframes": -6,
+    "has_aria_attributes": 1,
+    "num_aria_attributes": 41,
+    "aria_attribute_density": 0.04596412556053812,
+    "num_aria_label": 20,
+    "num_aria_labelledby": 4,
+    "num_aria_hidden": 7,
+    "num_aria_live": 1,
+    "num_broken_aria_labelledby_refs": 0,
+    "unlabelled_button_ratio": 0.0667,
+    "unlabelled_link_ratio": 0.1298,
+    "unlabelled_input_ratio": 0.5714,
+    "num_images_without_alt": 2,
+    "alt_text_coverage": 0.9411764705882353,
+    "heading_level_skips": 1,
+    "empty_heading_count": 0,
+    "has_main_landmark": 0,
+    "has_nav_landmark": 1,
+    "semantic_element_ratio": 0.03699551569506727,
+    "average_paragraph_word_count": 21.476190476190474,
+    "id": "497",
+    "website": "newsbook",
+    "page_type": "news_listing"
+}

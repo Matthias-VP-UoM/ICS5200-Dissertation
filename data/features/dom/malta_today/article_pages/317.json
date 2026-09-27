@@ -1,0 +1,63 @@
+{
+    "num_links": 151,
+    "num_images": 31,
+    "num_scripts": 40,
+    "num_iframes": 14,
+    "num_buttons": 3,
+    "num_forms": 2,
+    "num_paragraphs": 10,
+    "num_headings": 2,
+    "text_length": 5259,
+    "word_count": 775,
+    "dom_depth": 24,
+    "num_advertisement_iframes": 3,
+    "advertisement_iframes": [
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_news_Leaderboard_728x90_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/ELECTION_2026_INLINE_BANNER_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/video_advert_preroll_0",
+            "text": ""
+        }
+    ],
+    "num_non_ad_iframes": 11,
+    "has_aria_attributes": 1,
+    "num_aria_attributes": 8,
+    "aria_attribute_density": 0.01038961038961039,
+    "num_aria_label": 4,
+    "num_aria_labelledby": 0,
+    "num_aria_hidden": 3,
+    "num_aria_live": 0,
+    "num_broken_aria_labelledby_refs": 0,
+    "unlabelled_button_ratio": 0.6667,
+    "unlabelled_link_ratio": 0.2119,
+    "unlabelled_input_ratio": 1.0,
+    "num_images_without_alt": 28,
+    "alt_text_coverage": 0.0967741935483871,
+    "heading_level_skips": 0,
+    "empty_heading_count": 0,
+    "has_main_landmark": 0,
+    "has_nav_landmark": 0,
+    "semantic_element_ratio": 0.006493506493506494,
+    "average_paragraph_word_count": 27.555555555555557,
+    "id": "317",
+    "website": "malta_today",
+    "page_type": "article_pages"
+}

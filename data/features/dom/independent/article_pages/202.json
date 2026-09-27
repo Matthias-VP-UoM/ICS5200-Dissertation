@@ -1,0 +1,119 @@
+{
+    "num_links": 197,
+    "num_images": 33,
+    "num_scripts": 61,
+    "num_iframes": 22,
+    "num_buttons": 0,
+    "num_forms": 1,
+    "num_paragraphs": 25,
+    "num_headings": 2,
+    "text_length": 9329,
+    "word_count": 1519,
+    "dom_depth": 23,
+    "num_advertisement_iframes": 8,
+    "advertisement_iframes": [
+        {
+            "tag": "iframe",
+            "src": "https://ads.independent.com.mt/www/delivery/afr.php?zoneid=36&cb=149",
+            "aria_label": null,
+            "class": [
+                "tmiads"
+            ],
+            "id": "af87707c",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": "https://ads.independent.com.mt/www/delivery/afr.php?zoneid=144&cb=297",
+            "aria_label": null,
+            "class": [
+                "tmiads"
+            ],
+            "id": "a7d95b78",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": "https://ads.independent.com.mt/www/delivery/afr.php?zoneid=141&cb=52",
+            "aria_label": null,
+            "class": [
+                "tmiads"
+            ],
+            "id": "a1353246",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": "https://ads.independent.com.mt/www/delivery/afr.php?resize=1&zoneid=22&target=_blank&cb=262",
+            "aria_label": null,
+            "class": [
+                "tmiads"
+            ],
+            "id": "ad1ea670",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": "https://ads.independent.com.mt/www/delivery/afr.php?zoneid=35&cb=199",
+            "aria_label": null,
+            "class": [
+                "tmiads"
+            ],
+            "id": "abcfa804",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": "https://ads.independent.com.mt/www/delivery/afr.php?zoneid=140&cb=83",
+            "aria_label": null,
+            "class": [
+                "tmiads"
+            ],
+            "id": "afcbf42a",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": "https://ads.independent.com.mt/www/delivery/afr.php?zoneid=147&cb=118",
+            "aria_label": null,
+            "class": [
+                "tmiads"
+            ],
+            "id": "a65e2a3a",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": "https://ads.independent.com.mt/www/delivery/afr.php?zoneid=34&cb=256",
+            "aria_label": null,
+            "class": [
+                "tmiads"
+            ],
+            "id": "ac264775",
+            "text": ""
+        }
+    ],
+    "num_non_ad_iframes": 14,
+    "has_aria_attributes": 1,
+    "num_aria_attributes": 114,
+    "aria_attribute_density": 0.08039492242595205,
+    "num_aria_label": 93,
+    "num_aria_labelledby": 0,
+    "num_aria_hidden": 2,
+    "num_aria_live": 0,
+    "num_broken_aria_labelledby_refs": 0,
+    "unlabelled_button_ratio": 0.0,
+    "unlabelled_link_ratio": 0.2538,
+    "unlabelled_input_ratio": 0.8571,
+    "num_images_without_alt": 21,
+    "alt_text_coverage": 0.36363636363636365,
+    "heading_level_skips": 0,
+    "empty_heading_count": 0,
+    "has_main_landmark": 0,
+    "has_nav_landmark": 1,
+    "semantic_element_ratio": 0.09661495063469676,
+    "average_paragraph_word_count": 21.772727272727273,
+    "id": "202",
+    "website": "independent",
+    "page_type": "article_pages"
+}

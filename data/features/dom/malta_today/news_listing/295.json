@@ -1,0 +1,71 @@
+{
+    "num_links": 189,
+    "num_images": 48,
+    "num_scripts": 24,
+    "num_iframes": 12,
+    "num_buttons": 2,
+    "num_forms": 2,
+    "num_paragraphs": 36,
+    "num_headings": 26,
+    "text_length": 8737,
+    "word_count": 1293,
+    "dom_depth": 24,
+    "num_advertisement_iframes": 4,
+    "advertisement_iframes": [
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_News_Leaderboard_728x90_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_News_RectBanner_300x250_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_News_Leaderboard2_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_News_Leaderboard2_2",
+            "text": ""
+        }
+    ],
+    "num_non_ad_iframes": 8,
+    "has_aria_attributes": 1,
+    "num_aria_attributes": 6,
+    "aria_attribute_density": 0.006528835690968444,
+    "num_aria_label": 4,
+    "num_aria_labelledby": 0,
+    "num_aria_hidden": 1,
+    "num_aria_live": 0,
+    "num_broken_aria_labelledby_refs": 0,
+    "unlabelled_button_ratio": 0.5,
+    "unlabelled_link_ratio": 0.1746,
+    "unlabelled_input_ratio": 1.0,
+    "num_images_without_alt": 26,
+    "alt_text_coverage": 0.4583333333333333,
+    "heading_level_skips": 0,
+    "empty_heading_count": 0,
+    "has_main_landmark": 0,
+    "has_nav_landmark": 0,
+    "semantic_element_ratio": 0.008705114254624592,
+    "average_paragraph_word_count": 12.777777777777779,
+    "id": "295",
+    "website": "malta_today",
+    "page_type": "news_listing"
+}

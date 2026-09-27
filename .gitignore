@@ -1,0 +1,13 @@
+__pycache__/
+
+dataset_raw/**/*.png
+dataset_raw/**/*.jpg
+dataset_final/**/*.png
+dataset_final/**/*.jpg
+streamlit_app/live_outputs/*
+*.html
+
+*.pkl
+*.pth
+
+__OLD_FILE_VERSIONS__/

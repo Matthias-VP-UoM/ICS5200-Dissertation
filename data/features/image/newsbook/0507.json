@@ -1,0 +1,12 @@
+{
+    "edge_density": 0.08210372924804688,
+    "contrast": 85.12054480855127,
+    "colour_variance": 7532.673791673926,
+    "text_density_proxy": 0.09339141845703125,
+    "mean_brightness": 192.01189041137695,
+    "brightness_variance": 7245.507148504585,
+    "whitespace_ratio": 0.6140251159667969,
+    "id": "0507",
+    "website": "newsbook",
+    "page_type": "news_listing"
+}

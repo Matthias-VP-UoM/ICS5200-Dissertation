@@ -1,0 +1,63 @@
+{
+    "num_links": 67,
+    "num_images": 21,
+    "num_scripts": 77,
+    "num_iframes": 15,
+    "num_buttons": 28,
+    "num_forms": 0,
+    "num_paragraphs": 1,
+    "num_headings": 13,
+    "text_length": 1702,
+    "word_count": 264,
+    "dom_depth": 12,
+    "num_advertisement_iframes": 3,
+    "advertisement_iframes": [
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/65246246/timesofmalta.com/billboard1_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/65246246/timesofmalta.com/sidebar1_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/65246246/timesofmalta.com/billboard2_0",
+            "text": ""
+        }
+    ],
+    "num_non_ad_iframes": 12,
+    "has_aria_attributes": 1,
+    "num_aria_attributes": 59,
+    "aria_attribute_density": 0.11195445920303605,
+    "num_aria_label": 49,
+    "num_aria_labelledby": 0,
+    "num_aria_hidden": 8,
+    "num_aria_live": 0,
+    "num_broken_aria_labelledby_refs": 0,
+    "unlabelled_button_ratio": 0.0,
+    "unlabelled_link_ratio": 0.0149,
+    "unlabelled_input_ratio": 0.0,
+    "num_images_without_alt": 1,
+    "alt_text_coverage": 0.9523809523809523,
+    "heading_level_skips": 0,
+    "empty_heading_count": 0,
+    "has_main_landmark": 1,
+    "has_nav_landmark": 1,
+    "semantic_element_ratio": 0.06451612903225806,
+    "average_paragraph_word_count": 10.0,
+    "id": "833",
+    "website": "times_of_malta",
+    "page_type": "home_page"
+}

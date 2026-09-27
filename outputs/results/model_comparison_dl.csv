@@ -1,0 +1,6 @@
+model,model_type,accuracy,precision,recall,f1_score
+ResNet18,CNN,0.8934,0.8978,0.8934,0.8949
+ResNet50,CNN,0.9036,0.9149,0.9036,0.9062
+VGG16,CNN,0.8985,0.9059,0.8985,0.9
+ViT-B/16,ViT,0.9036,0.9103,0.9036,0.9056
+Swin-T,ViT,0.9086,0.9138,0.9086,0.9102

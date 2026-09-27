@@ -1,0 +1,71 @@
+{
+    "num_links": 146,
+    "num_images": 30,
+    "num_scripts": 38,
+    "num_iframes": 15,
+    "num_buttons": 3,
+    "num_forms": 2,
+    "num_paragraphs": 16,
+    "num_headings": 2,
+    "text_length": 7150,
+    "word_count": 1088,
+    "dom_depth": 24,
+    "num_advertisement_iframes": 4,
+    "advertisement_iframes": [
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_business_Leaderboard_728x90_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_business_Inline_300x250_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_business_ArticleLeaderboard_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/video_advert_preroll_0",
+            "text": ""
+        }
+    ],
+    "num_non_ad_iframes": 11,
+    "has_aria_attributes": 1,
+    "num_aria_attributes": 9,
+    "aria_attribute_density": 0.011873350923482849,
+    "num_aria_label": 5,
+    "num_aria_labelledby": 0,
+    "num_aria_hidden": 3,
+    "num_aria_live": 0,
+    "num_broken_aria_labelledby_refs": 0,
+    "unlabelled_button_ratio": 0.6667,
+    "unlabelled_link_ratio": 0.2192,
+    "unlabelled_input_ratio": 1.0,
+    "num_images_without_alt": 27,
+    "alt_text_coverage": 0.1,
+    "heading_level_skips": 0,
+    "empty_heading_count": 0,
+    "has_main_landmark": 0,
+    "has_nav_landmark": 0,
+    "semantic_element_ratio": 0.006596306068601583,
+    "average_paragraph_word_count": 38.86666666666667,
+    "id": "358",
+    "website": "malta_today",
+    "page_type": "article_pages"
+}

@@ -1,0 +1,63 @@
+{
+    "num_links": 190,
+    "num_images": 49,
+    "num_scripts": 25,
+    "num_iframes": 11,
+    "num_buttons": 3,
+    "num_forms": 2,
+    "num_paragraphs": 36,
+    "num_headings": 26,
+    "text_length": 8390,
+    "word_count": 1268,
+    "dom_depth": 24,
+    "num_advertisement_iframes": 3,
+    "advertisement_iframes": [
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_News_Leaderboard_728x90_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_News_RectBanner_300x250_0",
+            "text": ""
+        },
+        {
+            "tag": "iframe",
+            "src": null,
+            "aria_label": "Advertisement",
+            "class": null,
+            "id": "google_ads_iframe_/13474545/MaltaToday_News_Leaderboard2_0",
+            "text": ""
+        }
+    ],
+    "num_non_ad_iframes": 8,
+    "has_aria_attributes": 1,
+    "num_aria_attributes": 5,
+    "aria_attribute_density": 0.005393743257820928,
+    "num_aria_label": 3,
+    "num_aria_labelledby": 0,
+    "num_aria_hidden": 1,
+    "num_aria_live": 0,
+    "num_broken_aria_labelledby_refs": 0,
+    "unlabelled_button_ratio": 0.6667,
+    "unlabelled_link_ratio": 0.1737,
+    "unlabelled_input_ratio": 1.0,
+    "num_images_without_alt": 26,
+    "alt_text_coverage": 0.46938775510204084,
+    "heading_level_skips": 0,
+    "empty_heading_count": 0,
+    "has_main_landmark": 0,
+    "has_nav_landmark": 0,
+    "semantic_element_ratio": 0.008629989212513484,
+    "average_paragraph_word_count": 12.194444444444445,
+    "id": "293",
+    "website": "malta_today",
+    "page_type": "news_listing"
+}
