@@ -20,6 +20,8 @@ In order to use the program, the correct dependencies must be installed. These c
 pip install -r requirements.txt
 ```
 
+**Important: Kindly note that although the versions of the libraries indicated in the requirements.txt file will work fine with the code provided, the use of Google Colab may result in these libraries utilising a more recent version. Additional details on the use of Colab in this project is provided below.**
+
 ### 3. Gather the necessary data and files
 Due to file size constraints, the repository does not include the full dataset or the models that were trained using the training scripts provided.
 
