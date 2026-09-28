@@ -67,7 +67,6 @@ def save_feature_importance(model, feature_columns, output_path=None):
 def save_classification_report(y_test, predictions, output_path=None):
     report_dict = classification_report(y_test, predictions, output_dict=True)
 
-    # 2. Convert to DataFrame and transpose so classes are rows
     report_df = pd.DataFrame(report_dict).transpose()
 
     if output_path:
@@ -78,7 +77,7 @@ def save_classification_report(y_test, predictions, output_path=None):
             report_df.to_csv(output_path, index=True)
 
     print("\nClassification Report Saved successfully!")
-    print(report_df) # Optional: print to console
+    print(report_df)
 
 
 def plot_confusion_matrix(model_name, y_test, predictions, output_path=None):
@@ -99,10 +98,8 @@ def plot_confusion_matrix(model_name, y_test, predictions, output_path=None):
 
     plt.show()
 
+# Generates global SHAP summary/beeswarm plots across the test dataset for a given model
 def generate_global_shap_plots(model, X_test, feature_columns, model_name, output_dir="outputs/plots_shap"):
-    """
-    Generates global SHAP summary/beeswarm plots across the test dataset for a given model.
-    """
     os.makedirs(output_dir, exist_ok=True)
 
     # Unwrap pipeline classifier if present
@@ -113,7 +110,6 @@ def generate_global_shap_plots(model, X_test, feature_columns, model_name, outpu
 
     X_test_df = pd.DataFrame(X_test, columns=feature_columns)
 
-    # Gradient Boosting Multiclass Fix: TreeExplainer doesn't support 3+ classes for Sklearn GB
     if "GradientBoosting" in type(base_estimator).__name__:
         X_background = shap.kmeans(X_test_df, 50).data
         explainer = shap.KernelExplainer(base_estimator.predict_proba, X_background)
@@ -128,15 +124,12 @@ def generate_global_shap_plots(model, X_test, feature_columns, model_name, outpu
         else:
             vals = raw_shap_values
 
-        # --- Fix: don't trust explainer.expected_value blindly ---
         expected_value = explainer.expected_value
         if expected_value is None:
-            # Fall back: mean predicted probability per class over the background set
             expected_value = base_estimator.predict_proba(X_background).mean(axis=0)
 
         base_vals = np.array(expected_value) if isinstance(expected_value, list) else np.asarray(expected_value)
 
-        # Broadcast to (n_samples, n_classes) so it matches vals' shape (samples, features, classes)
         n_samples = vals.shape[0]
         n_classes = vals.shape[-1]
         if base_vals.ndim == 1 and base_vals.shape[0] == n_classes:
@@ -155,10 +148,10 @@ def generate_global_shap_plots(model, X_test, feature_columns, model_name, outpu
     # explainer = shap.TreeExplainer(base_estimator)
     # shap_values = explainer(X_test_df, check_additivity=False)
 
-    # 1. Extract raw numpy values from the Explanation object
+    # Extract raw numpy values from the Explanation object
     vals = shap_values.values if hasattr(shap_values, "values") else shap_values
 
-    # 2. Average mean absolute impact across samples (and classes if multiclass)
+    # Average mean absolute impact across samples (and classes if multiclass)
     if vals.ndim == 3:
         # Shape: (samples, features, classes) -> average across samples (axis 0) and classes (axis 2)
         mean_abs_shap = np.abs(vals).mean(axis=(0, 2))
@@ -239,12 +232,8 @@ def generate_global_shap_plots(model, X_test, feature_columns, model_name, outpu
 
     return shap_values
 
-def generate_per_class_beeswarm(shap_values, X_test, feature_columns, model_name,
-                                  class_names=None, top_n=10, output_dir="outputs/plots_shap"):
-    """
-    Generates per-class SHAP beeswarm plots for the top-N globally important features.
-    Complements the stacked-bar summary with direction + distribution info.
-    """
+# Generates per-class SHAP beeswarm plots for the top-N globally important features
+def generate_per_class_beeswarm(shap_values, X_test, feature_columns, model_name, class_names=None, top_n=10, output_dir="outputs/plots_shap"):
     os.makedirs(output_dir, exist_ok=True)
 
     X_test_df = pd.DataFrame(X_test, columns=feature_columns)
@@ -302,45 +291,11 @@ def generate_per_class_beeswarm(shap_values, X_test, feature_columns, model_name
     print(f"Per-class beeswarm plot saved to: {save_path}")
     return top_features
 
-
+# Generates global SHAP summary/beeswarm plots across the test dataset for a given model
 def generate_shap_error_plots(model, X_test, y_test, y_pred, feature_columns, model_name, shap_values, output_dir="outputs/plots_shap"):
-    """
-    Generates global SHAP summary/beeswarm plots across the test dataset for a given model.
-    """
     os.makedirs(output_dir, exist_ok=True)
 
-    # Unwrap pipeline classifier if present
-    # if hasattr(model, "named_steps") and "classifier" in model.named_steps:
-    #     base_estimator = model.named_steps["classifier"]
-    # else:
-    #     base_estimator = model
-
     X_test_df = pd.DataFrame(X_test, columns=feature_columns)
-
-    # # Gradient Boosting Multiclass Fix: TreeExplainer doesn't support 3+ classes for Sklearn GB
-    # if "GradientBoosting" in type(base_estimator).__name__:
-    #     # Use PermutationExplainer on the predict_proba function
-    #     explainer = shap.Explainer(base_estimator.predict_proba, X_test_df.values)
-    #     shap_values = explainer(X_test_df.values)
-
-    #     shap_values.feature_names = list(feature_columns)
-    # else:
-    #     # Fast path for Random Forest and standard models
-    #     explainer = shap.TreeExplainer(base_estimator)
-    #     shap_values = explainer(X_test_df, check_additivity=False)
-    # explainer = shap.TreeExplainer(base_estimator)
-    # shap_values = explainer(X_test_df, check_additivity=False)
-
-    # 1. Extract raw numpy values from the Explanation object
-    # vals = shap_values.values if hasattr(shap_values, "values") else shap_values
-
-    # 2. Average mean absolute impact across samples (and classes if multiclass)
-    # if vals.ndim == 3:
-    #     # Shape: (samples, features, classes) -> average across samples (axis 0) and classes (axis 2)
-    #     mean_abs_shap = np.abs(vals).mean(axis=(0, 2))
-    # else:
-    #     # Shape: (samples, features) -> average across samples (axis 0)
-    #     mean_abs_shap = np.abs(vals).mean(axis=0)
 
     misclassified_idx = np.where(y_pred != y_test)[0]
 
@@ -362,11 +317,6 @@ def generate_shap_error_plots(model, X_test, y_test, y_pred, feature_columns, mo
         'Feature': X_test_df.columns,
         'Mean_Abs_SHAP_Error': mean_error_shap
     }).sort_values(by='Mean_Abs_SHAP_Error', ascending=False)
-
-    # misclassified_shap_df = pd.DataFrame({
-    #     'Feature': X_test_df.columns,
-    #     'Mean_Abs_SHAP_Error': np.abs(misclassified_shap.values).mean(axis=0)
-    # }).sort_values(by='Mean_Abs_SHAP_Error', ascending=False)
 
     print("Top Global Features:")
     print(misclassified_shap_df.head(15))
@@ -433,22 +383,17 @@ def generate_shap_error_plots(model, X_test, y_test, y_pred, feature_columns, mo
 
     print(f"SHAP error summary plot successfully saved to: {save_path}")
 
-
+# Compares global mean absolute SHAP values against misclassification SHAP values
 def compare_global_vs_error_shap(shap_values, X_test, y_test, y_pred, feature_columns, output_path=None):
-    """
-    Compares global mean absolute SHAP values against misclassification SHAP values.
-    """
     raw_shap = shap_values.values if hasattr(shap_values, "values") else shap_values
     mis_idx = np.where(y_pred != y_test)[0]
 
-    # 1. Global Mean Absolute Impact
+    # Global Mean Absolute Impact
     global_impact = np.abs(raw_shap).mean(axis=(0, 2)) if raw_shap.ndim == 3 else np.abs(raw_shap).mean(axis=0)
 
-    # 2. Error Mean Absolute Impact
+    # Error Mean Absolute Impact
     raw_mis = raw_shap[mis_idx]
     error_impact = np.abs(raw_mis).mean(axis=(0, 2)) if raw_mis.ndim == 3 else np.abs(raw_mis).mean(axis=0)
-
-    # X_test_df = pd.DataFrame(X_test, columns=feature_columns)
 
     if feature_columns is not None:
         features = feature_columns

@@ -75,63 +75,7 @@ NON_FEATURE_COLUMNS = [
     "accessibility_risk_score"
 ]
 
-# FEATURES_FOR_SCORING = [
-#     "edge_density",
-#     "contrast",
-#     "colour_variance",
-#     "layout_density",
-#     "text_density_proxy",
-#     "brightness_variance",
-#     "dom_depth",
-#     "num_links",
-#     "num_images",
-#     # "num_iframes",
-#     "num_buttons",
-#     "num_paragraphs",
-#     "num_headings",
-#     "word_count",
-#     "num_advertisement_iframes",
-#     "num_non_ad_iframes"
-# ]
-
-# NON_FEATURE_COLUMNS = [
-#     "id",
-#     "website",
-#     "page_type",
-#     "url",
-#     "screenshot_path",
-#     "html_path",
-#     "num_iframes",
-#     "accessibility_label",
-#     "accessibility_label_text",
-#     "advertisement_iframes",
-#     "accessibility_risk_score"
-# ]
-
 TARGET_COLUMN = "accessibility_label"
-
-
-# def load_dataset(dataset_path="data/annotated_dataset.csv"):
-#     df = pd.read_csv(dataset_path)
-
-#     # feature_columns = [
-#     #     col for col in df.columns
-#     #     if col in FEATURES_FOR_SCORING
-#     # ]
-
-#     missing_features = [
-#         feature for feature in FEATURES_FOR_SCORING
-#         if feature not in df.columns
-#     ]
-
-#     if missing_features:
-#         raise ValueError(f"Missing required features: {missing_features}")
-
-#     X = df[FEATURES_FOR_SCORING]
-#     y = df[TARGET_COLUMN]
-
-#     return X, y, FEATURES_FOR_SCORING
-
 
 def load_dataset(dataset_path="data/final_dataset.csv"):
     df = pd.read_csv(dataset_path)
@@ -152,11 +96,6 @@ def load_dataset(dataset_path="data/final_dataset.csv"):
         raise ValueError(
             f"The target column '{TARGET_COLUMN}' is missing from the dataset."
         )
-
-    # feature_columns = [
-    #     col for col in df.columns
-    #     if col in FEATURES_FOR_SCORING
-    # ]
 
     X = df[FEATURES_FOR_SCORING]
     y = df[TARGET_COLUMN]

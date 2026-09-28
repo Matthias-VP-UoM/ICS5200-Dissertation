@@ -53,18 +53,3 @@ for img_list in tqdm(imgs_list_full, desc='Processing images...'):
         cv2.imwrite(img_file, crop_img)
 
 cv2.destroyAllWindows()
-
-# img = cv2.imread(img_file)
-# if img is None:
-#     raise ValueError(f"Unable to load image: {img_file}")
-
-# w, h = img.shape[1], img.shape[0]
-
-# print('Width:', img.shape[1])
-# print('Height:', img.shape[0])
-
-# crop_img = img[Y_TO_CROP:h, :w]
-
-# cv2.imshow('femeifeifijfewe', crop_img)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()

@@ -50,15 +50,11 @@ def convert_pred_to_str(pred_result):
         raise ValueError("Number not in range")
 
 def generate_global_shap_plots(test_df: pd.DataFrame, tabular_model_names: list[str]):
-    """
-    Extracts features across the dataset and computes global SHAP summary figures
-    for each specified tabular model across all predictions.
-    """
     print("\n==========================================")
     print("EXTRACTING FEATURES FOR GLOBAL SHAP PLOTS")
     print("==========================================")
     
-    # 1. Collect all tabular samples cleanly into a single 2D list
+    # Collect all tabular samples cleanly into a single 2D list
     features_list = []
     for index, row in test_df.iterrows():
         screenshot_path = str(row["screenshot_path"])
@@ -83,7 +79,7 @@ def generate_global_shap_plots(test_df: pd.DataFrame, tabular_model_names: list[
     # Convert list of dicts directly into a clean 2D DataFrame (N_samples, N_features)
     X_raw = pd.DataFrame(features_list)
 
-    # 2. Compute and Plot Global SHAP for each specified model
+    # Compute and Plot Global SHAP for each specified model
     for model_name in tabular_model_names:
         print(f"\nComputing Global SHAP summary for: {model_name}...")
         
@@ -131,9 +127,6 @@ def process_test_dataset(
     cam_method: str = "layercam",
     checkpoint_path: Path | str | None = None,
 ):
-    """
-    Processes test samples, generates individual sample SHAP & CAM overlays, and reports metrics.
-    """
     tabular_saved = True
     visual_saved = False
 

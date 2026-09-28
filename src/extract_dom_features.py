@@ -383,14 +383,14 @@ def extract_motion_features(soup):
     ]
     all_css_text = style_content + " " + " ".join(inline_styles)
 
-    # 1. CSS Animations and Transitions
+    # CSS Animations and Transitions
     animation_matches = re.findall(
         r"(animation(-name|-duration|-keyframes)?\s*:|@keyframes)",
         all_css_text,
     )
     transition_matches = re.findall(r"transition\s*:", all_css_text)
 
-    # 2. Dynamic and Autoplay Media
+    # Dynamic and Autoplay Media
     video_elements = soup.find_all("video")
     autoplay_videos = sum(1 for v in video_elements if v.has_attr("autoplay"))
 
@@ -402,7 +402,7 @@ def extract_motion_features(soup):
     # Moving web graphics / dynamic dynamic tags
     marquee_tags = soup.find_all("marquee")
 
-    # 3. Accessibility override check (prefers-reduced-motion)
+    # Accessibility override check (prefers-reduced-motion)
     has_prefers_reduced_motion = int(
         "prefers-reduced-motion" in all_css_text
     )
@@ -520,12 +520,12 @@ def extract_dom_features(html_path):
     features.update(extract_image_accessibility_features(soup))
     features.update(extract_heading_accessibility_features(soup))
     features.update(extract_landmark_features(soup))
-    # features.update(extract_accessible_name_features(soup))
-    # features.update(extract_form_accessibility_features(soup))
+    # features.update(extract_accessible_name_features(soup))       --- NOT UTILISED
+    # features.update(extract_form_accessibility_features(soup))    --- NOT UTILISED
     features.update(extract_readability_features(soup))
 
     # features.update(extract_motion_features(soup))
-    # features.update(extract_color_complexity_features(soup))
+    # features.update(extract_color_complexity_features(soup))      --- NOT UTILISED
 
     return features
 

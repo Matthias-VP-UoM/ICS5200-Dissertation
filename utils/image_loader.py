@@ -3,8 +3,7 @@ import numpy as np
 from PIL import Image
 import torch
 from torch.utils.data import Dataset, WeightedRandomSampler
-# from torchvision import transforms
-from torchvision.transforms import v2 # Use torchvision.transforms if v2 isn't installed
+from torchvision.transforms import v2
 from torchvision.transforms import InterpolationMode
 
 
@@ -29,11 +28,9 @@ class WebpageScreenshotDataset(Dataset):
 
         return image, label
 
-# Defines the target screenshot size for transformation and preprocessing
-# The below value is defined to maintain the aspect ratio
 IMG_SIZE = (320, 704)
 
-# Defines the transformations to be made to each image for normalisation and preprocessing purposes
+# Perform transformations on the images to prep them for use in models (both training and inference)
 def get_image_transforms(image_size=IMG_SIZE, is_train=False):
     structural_transforms = [
         v2.Resize(image_size, interpolation=InterpolationMode.BICUBIC),
@@ -54,7 +51,7 @@ def get_image_transforms(image_size=IMG_SIZE, is_train=False):
             v2.ColorJitter(
                 brightness=0.1,
                 contrast=0.1,
-                saturation=0.0,              # Keep colors intact if color matters for your classes
+                saturation=0.0,              # Keep colours intact if color matters for your classes
                 hue=0.0
             ),
             *normalization_transforms

@@ -58,9 +58,6 @@ def process_test_dataset(
     cam_method: str = "layercam",  # Options: "layercam", "gradcam++", "guidedgradcam", "gradcam"
     checkpoint_path: Path | str | None = None,
 ):
-    """
-    Processes test samples, generates SHAP & CAM overlays, and reports metrics.
-    """
     tabular_saved = False
     visual_saved = True
 
@@ -145,19 +142,12 @@ def process_test_dataset(
 if __name__ == "__main__":
     subset_df = test_records.iloc[152:]
     for tab_model in ["Random Forest", "Gradient Boosting"]:
-    # for vis_model in ["ResNet18", "ResNet50"]: #"ResNet18", "ResNet50", "VGG16", "ViT-B-16", "Swin-T"
-        print(f"Running {tab_model}...")
-        # if vis_model == "Swin-T":
-        #     process_test_dataset(
-        #         test_df=subset_df,
-        #         tabular_model_name="Gradient Boosting",
-        #         visual_architecture=vis_model,  # Options: "ResNet18", "ResNet50", "VGG16", "ViT-B-16", "Swin-T"
-        #         cam_method="guidedgradcam",           # Options: "layercam", "gradcam++", "guidedgradcam", "gradcam"
-        #     )
-        # else:
-        process_test_dataset(
-            test_df=test_records,
-            tabular_model_name=tab_model,
-            visual_architecture="ResNet50",  # Options: "ResNet18", "ResNet50", "VGG16", "ViT-B-16", "Swin-T"
-            cam_method="layercam",           # Options: "layercam", "gradcam++", "guidedgradcam", "gradcam"
-        )
+        for vis_model in ["ResNet18", "ResNet50", "VGG16", "ViT-B-16", "Swin-T"]:
+            for cam_method in ["layercam", "gradcam++", "guidedgradcam"]:
+                print(f"Running {tab_model}+{vis_model} with {cam_method} method...")
+                process_test_dataset(
+                    test_df=test_records,
+                    tabular_model_name=tab_model,
+                    visual_architecture=vis_model,  
+                    cam_method=cam_method
+                )

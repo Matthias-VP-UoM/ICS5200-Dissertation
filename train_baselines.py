@@ -15,7 +15,6 @@ from models.gradient_boosting import train_grad_boost
 
 # Utility function to print out memory (RAM) and processing (CPU) usage
 def log_resource_usage(stage_name=""):
-    """Prints the current CPU and RAM usage of the Python process."""
     process = psutil.Process(os.getpid())
 
     # RAM usage in Megabytes
@@ -31,11 +30,7 @@ def log_resource_usage(stage_name=""):
 
 
 def main():
-
-    # =====================================================
-    # CREATE OUTPUT DIRECTORIES
-    # =====================================================
-
+    # Initialising output paths and directories
     output_dir = 'outputs'
     models_dir = 'models'
     results_dir = 'results'
@@ -51,17 +46,10 @@ def main():
         if not os.path.exists(p):
             os.makedirs(p)
 
-    # =====================================================
-    # LOAD FULL DATASET
-    # =====================================================
-
+    # Loading the full dataset
     data_dir = 'data'
 
-    # DATASET_PATH = os.path.join(data_dir, 'annotated_dataset_v6.csv')
     DATASET_PATH = os.path.join(data_dir, 'annotated_dataset.csv')
-
-    # TRAIN_SPLIT_PATH = os.path.join(data_dir, 'train_split_v6.csv')
-    # TEST_SPLIT_PATH = os.path.join(data_dir, 'test_split_v6.csv')
 
     TRAIN_SPLIT_PATH = os.path.join(data_dir, 'train_split.csv')
     TEST_SPLIT_PATH = os.path.join(data_dir, 'test_split.csv')
@@ -73,9 +61,9 @@ def main():
     print("Dataset loaded successfully.")
     print("Dataset shape:", df.shape)
 
-    # CHECK IF PERSISTENT SPLITS ALREADY EXIST
+    # Checks if a train and test set already exist
     if os.path.exists(TRAIN_SPLIT_PATH) and os.path.exists(TEST_SPLIT_PATH):
-        print(" Found existing train/test split files! Loading them to ensure identical subsets...")
+        print("Found existing train/test split files! Loading them to ensure identical subsets...")
         train_df = pd.read_csv(TRAIN_SPLIT_PATH)
         test_df = pd.read_csv(TEST_SPLIT_PATH)
         
@@ -92,9 +80,7 @@ def main():
         train_df.to_csv(TRAIN_SPLIT_PATH, index=False)
         test_df.to_csv(TEST_SPLIT_PATH, index=False)
 
-    # =====================================================
-    # CLASSICAL ML PIPELINE
-    # =====================================================
+    # Initialise the classical machine learning pipeline
 
     print("\n==============================")
     print("CLASSICAL ML PIPELINE")
@@ -139,15 +125,12 @@ def main():
         X_train_resampled = X_train.copy()
         y_train_resampled = y_train.copy()
 
-    # Normalize/Scale features safely across the isolated sets
+    # Normalise/Scale features safely across the isolated sets
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train_resampled)
     X_test_scaled = scaler.transform(X_test)
 
-    # -----------------------------
-    # RANDOM FOREST
-    # -----------------------------
-
+    # Optimise and train Random Forest model
     rf_model, rf_results = train_random_forest(
         X_train_scaled,
         X_test_scaled,
@@ -157,25 +140,13 @@ def main():
         use_optuna_tuning=False
     )
 
-    rf_model_path = os.path.join(models_path, 'rf_model_v7.pkl')
+    # Save the Random Forest model for future use
+    rf_model_path = os.path.join(models_path, 'rf_model.pkl')
 
     with open(rf_model_path, 'wb') as f:
         pickle.dump(rf_model, f)
 
-    # Generate SHAP Plot for Random Forest
-    # print("\nGenerating SHAP plots for Random Forest...")
-    # generate_global_shap_plots(
-    #     rf_model, 
-    #     X_test_scaled, 
-    #     feature_columns, 
-    #     model_name="Random Forest",
-    #     output_dir=plots_path
-    # )
-
-    # -----------------------------
-    # GRADIENT BOOSTING
-    # -----------------------------
-
+    # Optimise and train Gradient Boosting model
     gb_model, gb_results = train_grad_boost(
         X_train_scaled,
         X_test_scaled,
@@ -185,35 +156,23 @@ def main():
         use_optuna_tuning=False
     )
 
-    gb_model_path = os.path.join(models_path, 'gb_model_v7.pkl')
+    # Save the Gradient Boosting model for future use
+    gb_model_path = os.path.join(models_path, 'gb_model.pkl')
 
     with open(gb_model_path, 'wb') as f:
         pickle.dump(gb_model, f)
 
-    # Generate SHAP Plot for Gradient Boosting
-    # print("\nGenerating SHAP plots for Gradient Boosting...")
-    # generate_global_shap_plots(
-    #     gb_model, 
-    #     X_test_scaled, 
-    #     feature_columns, 
-    #     model_name="Gradient Boosting",
-    #     output_dir=plots_path
-    # )
-
-    scaler_path = os.path.join(models_path, 'scaler_v7.pkl')
+    # Save the utilised scaler for future use
+    scaler_path = os.path.join(models_path, 'scaler.pkl')
 
     with open(scaler_path, 'wb') as f:
         pickle.dump(scaler, f)
     
-    # =====================================================
-    # SAVE INDIVIDUAL TEST PREDICTIONS
-    # =====================================================
-
     # Generate sample-level predictions
     rf_preds = rf_model.predict(X_test_scaled)
     gb_preds = gb_model.predict(X_test_scaled)
 
-    # Construct dataframe linking original IDs and ground truth labels
+    # Construct table linking original IDs and ground truth labels
     predictions_df = pd.DataFrame({
         "id": test_df["id"].values,
         "actual_label": y_test.values,
@@ -221,25 +180,21 @@ def main():
         "gb_predicted_label": gb_preds
     })
 
-    # Optional: Add class prediction probabilities
+    # Adding class prediction probabilities
     rf_probs = rf_model.predict_proba(X_test_scaled)
     gb_probs = gb_model.predict_proba(X_test_scaled)
 
-    # Assuming multi-class output (e.g., classes 0, 1, 2)
     for class_idx in range(rf_probs.shape[1]):
         predictions_df[f"rf_prob_class_{class_idx}"] = rf_probs[:, class_idx]
         predictions_df[f"gb_prob_class_{class_idx}"] = gb_probs[:, class_idx]
 
     # Save to CSV in results directory
-    # predictions_output_path = os.path.join(results_path, "individual_predictions_v7.csv")
-        predictions_output_path = os.path.join(results_path, "individual_predictions.csv")
+    predictions_output_path = os.path.join(results_path, "individual_predictions.csv")
     predictions_df.to_csv(predictions_output_path, index=False)
 
     print(f"\nIndividual predictions saved successfully to: {predictions_output_path}")
 
-    # =====================================================
-    # SAVE COMPARISON RESULTS
-    # =====================================================
+    # Saving the comparison results
 
     comparison_df = pd.DataFrame([
         rf_results,
@@ -248,7 +203,6 @@ def main():
 
     comparison_df.to_csv(
         "outputs/results/model_comparison.csv",
-        # "outputs/results/model_comparison_v7.csv",
         index=False
     )
 

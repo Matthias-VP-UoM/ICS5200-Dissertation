@@ -16,14 +16,6 @@ news_sites_list = os.listdir(ds_folder)
 
 dir_path = Path(final_ds_folder)
 
-# for item in dir_path.iterdir():
-#     if item.is_dir():
-#         shutil.rmtree(item)
-#     else:
-#         item.unlink()
-
-# exit(0)
-
 def init_folder(path):
     os.makedirs(path)
 
@@ -37,7 +29,6 @@ def copy_and_rename_file(file_path, id=None):
         destination_file_path = os.path.join(final_ds_folder, img_path_parts[1], img_path_parts[2], img_path_parts[3], destination_file_name)
 
     try:
-        # This copies 'original.txt' and names the copy 'copied_and_renamed.txt'
         new_path = shutil.copy(file_path, destination_file_path)
         print(f"File {file_path} copied successfully to: {new_path}")
     except FileNotFoundError:
@@ -63,10 +54,7 @@ for site_path in final_news_site_paths:
         if not os.path.exists(site_path):
             init_folder(site_path)
 
-# exit(0)
-
 # Copy all the image files from the raw dataset into the final dataset folder and rename with id
-# id_count = 0
 imgs_list_full = []
 selected_imgs = []
 for site in news_sites_list:
@@ -82,24 +70,5 @@ for site in news_sites_list:
 all_images = [img for sublist in imgs_list_full for img in sublist]
 print(all_images)
 
-# exit(0)
-
 for id_count, img_file in enumerate(tqdm(all_images, desc="Copying images"), start=1):
     copy_and_rename_file(img_file, id=id_count)
-
-
-
-
-
-# for img_file in selected_imgs:
-#     img = cv2.imread(img_file)
-#     if img is None:
-#         raise ValueError(f"Unable to load image: {img_file}")
-    
-#     w, h = img.shape[1], img.shape[0]
-#     crop_img = img[Y_TO_CROP:h, :w]
-
-#     cv2.imshow('femeifeifijfewe', crop_img)
-#     cv2.waitKey(0)
-
-# cv2.destroyAllWindows()

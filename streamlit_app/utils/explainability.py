@@ -30,7 +30,7 @@ FEATURE_DESCRIPTIONS = {
     "num_aria_label": "the number of ARIA labels",
 }
 
-def _select_class_values(shap_values, predicted_class: int, n_features: int) -> np.ndarray:
+def select_class_values(shap_values, predicted_class: int, n_features: int) -> np.ndarray:
     """Handle SHAP's different multiclass output layouts across versions."""
     if isinstance(shap_values, list):
         values = np.asarray(shap_values[predicted_class])
@@ -49,67 +49,6 @@ def _select_class_values(shap_values, predicted_class: int, n_features: int) -> 
         return values[0]
 
     raise ValueError(f"Unsupported SHAP value shape: {values.shape}")
-
-
-# def explain_tabular_prediction(model, X_scaled: pd.DataFrame, predicted_class: int):
-#     # explainer = shap.TreeExplainer(model)
-#     # shap_values = explainer.shap_values(X_scaled)
-
-#     if "GradientBoosting" in type(model).__name__:
-#         # Use the generic shap.Explainer or KernelExplainer instead of TreeExplainer
-#         # We pass a callable prediction function (predict_proba)
-#         explainer = shap.PermutationExplainer(model.predict_proba, X_scaled)
-        
-#         # Calculate SHAP values for the sample
-#         shap_values = explainer.shap_values(X_scaled)
-        
-#         # For predict_proba output, shap_values.values has shape (samples, features, classes)
-#         # Extract the matrix for the specific predicted class index
-#         # Scenario A: shap_values is a list of arrays (one per class)
-#         if isinstance(shap_values, list):
-#             # Pull the matrix for the target prediction class, then take the first sample row
-#             actual_shap = shap_values[predicted_class][0]
-        
-#         # Scenario B: shap_values is a raw 3D numpy array [samples, features, classes]
-#         elif isinstance(shap_values, np.ndarray) and len(shap_values.shape) == 3:
-#             actual_shap = shap_values[0, :, predicted_class]
-            
-#         # Scenario C: shap_values is a 3D array structured as [samples, classes, features]
-#         elif isinstance(shap_values, np.ndarray) and shap_values.shape[1] == model.n_classes_:
-#             actual_shap = shap_values[0, predicted_class, :]
-            
-#         else:
-#             actual_shap = shap_values[0]
-            
-#     else:
-#         # Standard fast TreeExplainer path (e.g., for Random Forest)
-#         explainer = shap.TreeExplainer(model)
-#         shap_values = explainer.shap_values(X_scaled)
-        
-#         if isinstance(shap_values, list):
-#             actual_shap = shap_values[predicted_class][0]
-#         elif len(shap_values.shape) == 3:
-#             actual_shap = shap_values[0, :, predicted_class]
-#         else:
-#             actual_shap = shap_values[0]
-
-#     # contributions = _select_class_values(
-#     #     shap_values,
-#     #     predicted_class=predicted_class,
-#     #     n_features=X_scaled.shape[1],
-#     # )
-    
-#     actual_shap = np.asarray(actual_shap).ravel()
-
-#     explanation_df = pd.DataFrame(
-#         {
-#             "Feature": X_scaled.columns,
-#             "SHAP value": actual_shap,
-#             "Absolute impact": np.abs(actual_shap),
-#         }
-#     ).sort_values("Absolute impact", ascending=False)
-
-#     return explanation_df
 
 # Pulls the fitted tree classifier out of an imblearn/sklearn Pipeline
 def _unwrap_classifier(model):
@@ -140,21 +79,12 @@ def explain_tabular_prediction(model, X_scaled, predicted_class):
                 actual_shap = shap_values.values[0, :, predicted_class]
             else:
                 actual_shap = shap_values[0]
-            # if isinstance(shap_values, list):
-            #     actual_shap = shap_values[predicted_class][0]
-            # elif isinstance(shap_values, np.ndarray) and len(shap_values.shape) == 3:
-            #     actual_shap = shap_values[0, :, predicted_class]
-            # elif isinstance(shap_values, np.ndarray) and shap_values.shape[1] == model.n_classes_:
-            #     actual_shap = shap_values[0, predicted_class, :]
-            # else:
-            #     actual_shap = shap_values[0]
                 
         else:
             # Standard path for Random Forest models (which accept DataFrames fine)
             explainer = shap.TreeExplainer(base_estimator)
             shap_values = explainer.shap_values(X_scaled, check_additivity=False)
 
-            # Case A: shap_values is an Explanation object (newer SHAP versions)
             if hasattr(shap_values, "values"):
                 vals = shap_values.values
                 if vals.ndim == 3:
@@ -163,11 +93,9 @@ def explain_tabular_prediction(model, X_scaled, predicted_class):
                 else:
                     actual_shap = vals[0]
 
-            # Case B: shap_values is a list of arrays (one matrix per class)
             elif isinstance(shap_values, list):
                 actual_shap = shap_values[predicted_class][0]
 
-            # Case C: shap_values is a 3D numpy array
             elif isinstance(shap_values, np.ndarray) and shap_values.ndim == 3:
                 if shap_values.shape[1] == X_scaled.shape[1]:
                     # Shape: (samples, features, classes)
@@ -177,15 +105,6 @@ def explain_tabular_prediction(model, X_scaled, predicted_class):
                     actual_shap = shap_values[0, predicted_class, :]
             else:
                 actual_shap = shap_values[0]
-
-            # print(shap_values)
-            
-            # if isinstance(shap_values, list):
-            #     actual_shap = shap_values[predicted_class][0]
-            # elif len(shap_values.shape) == 3:
-            #     actual_shap = shap_values[0, :, predicted_class]
-            # else:
-            #     actual_shap = shap_values[0]
 
         # Flatten the array safely into 1-dimension
         actual_shap = np.asarray(actual_shap).ravel()
@@ -201,12 +120,6 @@ def explain_tabular_prediction(model, X_scaled, predicted_class):
 
     except Exception as e:
         st.exception(e)
-        # st.warning(f"Could not generate SHAP visualization: {e}")
-        # return pd.DataFrame({
-        #     "Feature": X_scaled.columns,
-        #     "SHAP value": 0.0,
-        #     "Absolute impact": 0.0
-        # })
 
 # Plots the SHAP bar chart for the generated prediction
 def make_shap_bar_figure(explanation_df: pd.DataFrame, top_n: int = 12):

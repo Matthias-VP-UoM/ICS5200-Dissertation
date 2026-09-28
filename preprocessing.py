@@ -5,18 +5,12 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 
 
-# =========================================================
-# CONFIGURATION
-# =========================================================
-
-# INPUT_PATH = "data/final_dataset_v6.csv"
-# OUTPUT_PATH = "data/annotated_dataset_v6.csv"
-
+# Initialising paths and directories
 INPUT_PATH = "data/final_dataset.csv"
 OUTPUT_PATH = "data/annotated_dataset.csv"
 
+# Configuring preprocessing options
 NORMALISATION_METHOD = "standard"  
-# Options: "minmax", "standard", "robust"
 
 ARIA_FEATURES = [
     "has_aria_attributes",
@@ -29,35 +23,6 @@ ARIA_FEATURES = [
     "num_broken_aria_labelledby_refs",
     "interactive_elements_without_label"
 ]
-
-
-# FEATURES_FOR_SCORING = [
-#     "edge_density",
-#     "contrast",
-#     "colour_variance",
-#     "layout_density",
-#     "text_density_proxy",
-#     "brightness_variance",
-#     "dom_depth",
-#     "num_links",
-#     "num_images",
-#     # "num_iframes",
-#     "num_buttons",
-#     "num_paragraphs",
-#     "num_headings",
-#     "word_count",
-#     "num_advertisement_iframes",
-#     "num_non_ad_iframes",
-#     "has_aria_attributes",
-#     "num_aria_attributes",
-#     "aria_attribute_density",
-#     "num_aria_label",
-#     "num_aria_labelledby",
-#     "num_aria_hidden",
-#     "num_aria_live",
-#     "num_broken_aria_labelledby_refs",
-#     "interactive_elements_without_label"
-# ]
 
 # Define features that to be used to calculate the accessibility score for each webpage screenshot
 FEATURES_FOR_SCORING = [
@@ -300,13 +265,6 @@ FEATURE_WEIGHTS = {
     for feature, weight in FEATURE_WEIGHTS.items()
 }
 
-# print(FEATURE_WEIGHTS)
-
-
-# =========================================================
-# NORMALISATION
-# =========================================================
-
 # Initialises the scaler for normalisation
 def init_scaler(method):
     if method == "minmax":
@@ -343,10 +301,7 @@ def normalise_features(df, features, method="minmax"):
     return df
 
 
-# =========================================================
-# SCORE GENERATION
-# =========================================================
-
+# Generate the accessibility risk score for each entry in the dataset
 def compute_risk_score(df, features, weights, directions):
     score = np.zeros(len(df))
 
@@ -387,10 +342,7 @@ def assign_accessibility_label_text(score):
         return "Low"
 
 
-# =========================================================
-# REPORTING
-# =========================================================
-
+# Display the feature summary following preprocessing
 def print_feature_summary():
     print(f"Number of scoring features: {len(FEATURES_FOR_SCORING)}")
     print(f"Normalised weight total: {sum(FEATURE_WEIGHTS.values()):.6f}")
@@ -403,10 +355,6 @@ def print_feature_summary():
             f"{FEATURE_WEIGHTS[feature]:.4f}"
         )
 
-
-# =========================================================
-# MAIN
-# =========================================================
 
 def main():
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
