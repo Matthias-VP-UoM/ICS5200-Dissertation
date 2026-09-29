@@ -291,7 +291,3 @@ Intermediate files (screenshots, saved HTML, element maps) are written to the `l
 - Intended for **public news webpages**; results depend on the quality of the captured screenshot and HTML.
 - The **Interactive Browser** mode requires a local desktop session with Chrome installed.
 - Predictions are automated estimates and do **not** replace a full manual accessibility audit (for example, against WCAG guidelines).
-
-## Contact / Contributing
-
-Add contact details or contribution guidelines here.
