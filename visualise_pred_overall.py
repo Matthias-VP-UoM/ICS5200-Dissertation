@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import json
 import shap
-
 from utils.live_features import extract_live_features
 from utils.live_prediction import LABEL_MAP, predict_accessibility
 
