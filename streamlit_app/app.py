@@ -87,7 +87,7 @@ with st.sidebar:
         # )
     gradcam_method = st.selectbox(
         "Grad-CAM method",
-        ["Grad-CAM", "Grad-CAM++", "Layer-CAM", "Score-CAM"],
+        ["Grad-CAM", "Grad-CAM++", "Layer-CAM"],
         disabled=not (show_gradcam or use_hybrid_model),
         help="Used for Grad-CAM, and/or as the embedding backbone for the hybrid model.",
     )
