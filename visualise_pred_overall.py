@@ -8,9 +8,6 @@ from PIL import Image
 import json
 import shap
 
-# Import existing pipeline helper functions from app.py dependencies
-from utils.explainability import explain_tabular_prediction, make_shap_bar_figure
-from utils.gradcam import create_gradcam_overlay
 from utils.live_features import extract_live_features
 from utils.live_prediction import LABEL_MAP, predict_accessibility
 
@@ -120,86 +117,7 @@ def generate_global_shap_plots(test_df: pd.DataFrame, tabular_model_names: list[
         print(f"  └─ Global SHAP figure saved to: {output_path}")
 
 
-def process_test_dataset(
-    test_df: pd.DataFrame,
-    tabular_model_name: str = "Random Forest",
-    visual_architecture: str = "ResNet18",
-    cam_method: str = "layercam",
-    checkpoint_path: Path | str | None = None,
-):
-    tabular_saved = True
-    visual_saved = False
-
-    if checkpoint_path is None:
-        checkpoint_path = MODEL_DIR / f"{MODEL_CONFIG.get(visual_architecture)}"
-
-    str_checkpoint_path = str(checkpoint_path)
-
-    for index, row in test_df.iterrows():
-        record_id = row.get("id", f"sample_{index}")
-        screenshot_path = str(row["screenshot_path"])
-        html_path = str(row["html_path"])
-
-        print(f"[{index + 1}/{len(test_df)}] Processing record: {record_id}...")
-
-        try:
-            features = extract_live_features(screenshot_path, html_path)
-            result = predict_accessibility(features, tabular_model_name)
-            result_str = convert_pred_to_str(result["prediction"])
-            result_conf = f"{result['confidence']:.2%}"
-
-            target_dir = OUTPUT_DIR / tabular_model_name.lower()
-            target_dir.mkdir(parents=True, exist_ok=True)
-            shap_output_path = target_dir / f"{record_id}_shap.png"
-
-            if not tabular_saved:
-                shap_df = explain_tabular_prediction(
-                    result["model"], result["X_scaled"], result["prediction"]
-                )
-                shap_fig = make_shap_bar_figure(shap_df, result_str, result_conf)
-                shap_fig.savefig(shap_output_path, bbox_inches="tight", dpi=150)
-                plt.close(shap_fig)
-
-            gradcam_overlay, visual_probs, visual_class, cam_metrics = create_gradcam_overlay(
-                screenshot_path=screenshot_path,
-                checkpoint_path=str_checkpoint_path,
-                architecture=visual_architecture,
-                method=cam_method,
-            )
-
-            visual_class_str = convert_pred_to_str(visual_class)
-            visual_prob_max = visual_probs[visual_class]
-            visual_best_prob = f"{visual_prob_max:.2%}"
-
-            visual_architecture_dir = f"{visual_architecture.replace('/', '-').lower()}_{cam_method.lower()}"
-            gradcam_target_dir = OUTPUT_DIR / visual_architecture_dir
-            gradcam_target_dir.mkdir(parents=True, exist_ok=True)
-
-            visual_metrics_dir = OUTPUT_DIR / visual_architecture_dir / f"{cam_method.lower()}_metrics"
-            visual_metrics_dir.mkdir(parents=True, exist_ok=True)
-
-            gradcam_output_path = gradcam_target_dir / f"{record_id}_{cam_method.lower()}.png"
-            gradcam_output_metrics_path = visual_metrics_dir / f"{record_id}_{cam_method.lower()}_metrics.json"
-
-            if not visual_saved:
-                gradcam_overlay.save(gradcam_output_path)
-            
-            with open(gradcam_output_metrics_path, "w+") as f:
-                json.dump(cam_metrics, f, indent=4)
-
-            print(
-                f"  └─ Saved SHAP: {shap_output_path.name} | Pred: {result_str} ({result_conf})\n"
-                f"  └─ Saved {cam_method.upper()}: {gradcam_output_path.name} | Pred: {visual_class_str} ({visual_best_prob})\n"
-                f"  └─ Metrics -> Drop-in-Confidence: {cam_metrics['drop_in_confidence']:.2%}, Masked Conf: {cam_metrics['masked_confidence']:.2%}"
-            )
-
-        except Exception as exc:
-            print(f"  └─ [ERROR] Failed to process {record_id}: {exc}")
-
-
 if __name__ == "__main__":
-    subset_df = test_records.iloc[139:]
-    
-    # 1. Run global SHAP visualisations for both tabular models across all test samples
+    # Run global SHAP visualisations for both tabular models across all test samples
     tabular_models = ["Random Forest", "Gradient Boosting"]
-    generate_global_shap_plots(test_df=subset_df, tabular_model_names=tabular_models)
+    generate_global_shap_plots(test_df=test_records, tabular_model_names=tabular_models)
