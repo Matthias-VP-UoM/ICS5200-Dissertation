@@ -1,7 +1,7 @@
 # ICS5200-Dissertation
 This repository contains the codebase for my MSc in Artificial Intelligence Dissertation at the University of Malta, which falls under study unit ***ICS5200***.
 
-## Repository Structre
+## Repository Structure
 
 ### Folders
 - **data** - This folder contains the core data responsible for running the entire implementation, including the DOM and image features extracted from each webpage in the dataset, along with the annotations from the data.
@@ -57,7 +57,7 @@ Instead, these can be accessed by using the following Google link:
 https://drive.google.com/drive/folders/1dgEqFXd9tdGMVD-4JgXmYyqXCsUZj4Ah?usp=sharing
 
 To use the files contained in the link, first download and then upload them to the following directories:
-- The **"models"** folder should be placed inside the "outputs" directory in the root of the project working directory.
+- The **"models"** folder should be placed inside the "outputs" directory in the root of the project working directory. For use in the Streamlit application, this folder should also be placed in the root of the "streamlit_app" directory.
 - The **"dataset_final"** and **"dataset_raw"** folders should be placed in the root of the project working directory.
 
 **Note: If it asks you to replace any files, kindly refrain from doing so, as this will only allow you to place the missing files which are not available in this repository.**
